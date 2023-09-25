@@ -5,8 +5,8 @@
 ## 프로젝트 설정 및 실행
 
 ### 백엔드 서버 설정 및 실행
-
-1. 먼저, cmd에서 프로젝트의 `webcam_server` 디렉토리에서 가상 환경을 생성하고 활성화합니다. (선택 사항)
+cmd 창을 열고
+1. 먼저, 프로젝트의 `webcam_server` 디렉토리에서 가상 환경을 생성하고 활성화합니다. (선택 사항)
    ```bash
    python -m venv venv
    source venv/bin/activate  # Windows에서는 venv\Scripts\activate
@@ -24,7 +24,7 @@
    이제 백엔드 서버가 로컬 호스트의 5000번 포트에서 실행되고 있습니다: [http://localhost:5000](http://localhost:5000)
 
 ### 프론트엔드 클라이언트 설정 및 실행
-
+새로운 cmd 창을 열고
 1. `webcam_client` 디렉토리로 이동합니다.
    ```bash
    cd webcam_client
