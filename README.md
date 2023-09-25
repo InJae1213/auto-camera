@@ -1,70 +1,27 @@
-# Getting Started with Create React App
+Webcam App
+이 프로젝트는 백엔드 서버와 프론트엔드 클라이언트로 구성되어 있습니다. 백엔드 서버는 app.py 파일을 통해 실행되며, 프론트엔드 클라이언트는 React를 사용하여 구현되어 있습니다.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+프로젝트 설정 및 실행
+백엔드 서버 설정 및 실행
+1.먼저, cmd에서 프로젝트의 webcam_server 디렉토리에서 가상 환경을 생성하고 활성화합니다. (선택 사항)
+python -m venv venv
+source venv/bin/activate  # Windows에서는 venv\Scripts\activate
+2.필요한 패키지를 설치합니다.
+requirements.txt 파일에 명시된 의존성을 설치합니다
+pip install -r webcam_server/requirements.txt
+3.백엔드 서버를 실행합니다.
+python webcam_server/app.py
+이제 백엔드 서버가 로컬 호스트의 5000번 포트에서 실행되고 있습니다: http://localhost:5000
 
-## Available Scripts
 
-In the project directory, you can run:
+프론트엔드 클라이언트 설정 및 실행
+1.webcam_client 디렉토리로 이동합니다.
+cd webcam_client
+2.필요한 npm 패키지를 설치합니다.
+npm install
+3.React 앱을 실행합니다.
+npm start
+이제 웹 브라우저가 자동으로 열리고, React 앱이 로컬 호스트의 3000번 포트에서 실행되고 있습니다: http://localhost:3000
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+이제 백엔드 서버와 프론트엔드 클라이언트 모두 실행되고 있으며, 웹 앱을 사용할 준비가 되었습니다!
