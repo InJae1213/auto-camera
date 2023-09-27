@@ -13,8 +13,9 @@ cmd 창을 열고
    ```
 
 2. 필요한 패키지를 설치합니다. `requirements.txt` 파일에 명시된 의존성을 설치합니다.
+(webcam_server 디렉토리에서 아래 코드 실행)
    ```bash
-   pip install -r webcam_server/requirements.txt
+   pip install -r requirements.txt
    ```
 
 3. 백엔드 서버를 실행합니다.
