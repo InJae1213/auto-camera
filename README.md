@@ -13,10 +13,11 @@ cmd 창을 열고
    ```
 
 2. 필요한 패키지를 설치합니다. `requirements.txt` 파일에 명시된 의존성을 설치합니다.
+(webcam_server 디렉토리에서 아래 코드 실행)
    ```bash
-   pip install -r webcam_server/requirements.txt
+   pip install -r requirements.txt
    ```
-
+app.py 파일 내에서 cfg파일, weights 파일, coco.names파일이 절대경로로 설정되어있는데, 본인에 맞게 수정하기
 3. 백엔드 서버를 실행합니다.
    ```bash
    python webcam_server/app.py
