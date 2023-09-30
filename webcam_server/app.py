@@ -8,15 +8,9 @@ app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
 
 # YOLO Configurations
-<<<<<<< HEAD
 YOLO_CFG = "yolov3.cfg"
 YOLO_WEIGHTS = "yolov3.weights"
 YOLO_CLASSES = "coco.names"
-=======
-YOLO_CFG =  "C:/Users/shini/webcam-app/webcam_server/yolov4.cfg"
-YOLO_WEIGHTS = "C:/Users/shini/webcam-app/webcam_server/yolov4.weights"
-YOLO_CLASSES = "C:/Users/shini/webcam-app/webcam_server/coco.names"
->>>>>>> 8109392b0f94538a8f7d6444b21397546febd995
 CONFIDENCE_THRESHOLD = 0.5  # adjust to your needs
 NMS_THRESHOLD = 0.4  # adjust to your needs
 
