@@ -17,7 +17,6 @@ NMS_THRESHOLD = 0.4  # adjust to your needs
 net = cv2.dnn.readNet(YOLO_WEIGHTS, YOLO_CFG)
 layer_names = net.getLayerNames()
 output_layers = [layer_names[i - 1] for i in net.getUnconnectedOutLayers().flatten()]
-
 classes = open(YOLO_CLASSES).read().strip().split("\n")
 
 def detect_objects(image):

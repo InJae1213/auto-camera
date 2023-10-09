@@ -1,8 +1,9 @@
-import React, { useRef, useEffect, useCallback } from 'react';
+import React, { useRef, useEffect, useCallback, useState } from 'react';
 import Webcam from 'react-webcam';
 
 function WebcamApp({ selectedObject, objectCount, shootingInterval }) {
     const webcamRef = useRef(null);
+    const [indicatorColor, setIndicatorColor] = useState('red'); // 추가
 
     const saveImageFunction = useCallback(() => {
         const link = document.createElement('a');
@@ -30,6 +31,9 @@ function WebcamApp({ selectedObject, objectCount, shootingInterval }) {
             const objectOccurrences = detectedObjects.filter(obj => obj === selectedObject).length;
             if (objectOccurrences >= objectCount) {
                 saveImageFunction();
+                setIndicatorColor('green'); // 추가
+            } else {
+                setIndicatorColor('red'); // 추가
             }
         } catch (error) {
             console.error("Error sending image to server: ", error);
@@ -45,7 +49,7 @@ function WebcamApp({ selectedObject, objectCount, shootingInterval }) {
     }, [shootingInterval, sendImageToServer]);
 
     return (
-        <div>
+        <div style={{ position: 'relative' }}>
             <Webcam 
                 ref={webcamRef} 
                 screenshotFormat="image/jpeg"
@@ -53,6 +57,7 @@ function WebcamApp({ selectedObject, objectCount, shootingInterval }) {
                 width={1920}
                 height={1080}
             />
+            <div style={{ position: 'absolute', top: 10, right: 10, width: 30, height: 30, borderRadius: '50%', backgroundColor: indicatorColor }}></div> {/* 추가 */}
         </div>
     );
 }
