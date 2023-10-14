@@ -5,14 +5,14 @@ import numpy as np
 import base64
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS for all routes
+CORS(app)
 
 # YOLO Configurations
 YOLO_CFG = "yolov3.cfg"
 YOLO_WEIGHTS = "yolov3.weights"
 YOLO_CLASSES = "coco.names"
-CONFIDENCE_THRESHOLD = 0.5  # adjust to your needs
-NMS_THRESHOLD = 0.4  # adjust to your needs
+CONFIDENCE_THRESHOLD = 0.7  # Adjusted to 0.7 as in the provided YOLO code
+NMS_THRESHOLD = 0.4
 
 net = cv2.dnn.readNet(YOLO_WEIGHTS, YOLO_CFG)
 layer_names = net.getLayerNames()
@@ -50,9 +50,8 @@ def detect_objects(image):
 
     detected_objects = []
     indexes = cv2.dnn.NMSBoxes(boxes, confidences, CONFIDENCE_THRESHOLD, NMS_THRESHOLD)
-    for i in range(len(boxes)):
-        if i in indexes:
-            detected_objects.append(classes[class_ids[i]])
+    for i in indexes.flatten():  # Flatten the indexes array
+        detected_objects.append(classes[class_ids[i]])
 
     return detected_objects
 

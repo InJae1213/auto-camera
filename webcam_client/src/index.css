@@ -6,6 +6,13 @@ body, h1, h2, h3, h4, p, div, label, button, input, select {
   font-family: 'Arial', sans-serif;
 }
 
+body {
+  background-image: url('auto.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
 .App {
   display: flex;
   flex-direction: column;
@@ -13,27 +20,37 @@ body, h1, h2, h3, h4, p, div, label, button, input, select {
   justify-content: center;
   min-height: 100vh;
   padding: 20px;
-  background-color: #f5f5f5;
+  background-color: rgba(255, 255, 255, 0.8);
 }
 
 h1 {
   margin-bottom: 20px;
   color: #333;
+  font-size: 4em;
+  cursor: pointer;
+  transition: color 0.3s, transform 0.3s;
+}
+
+h1:hover {
+  color: red;
+  transform: scale(1.1);
 }
 
 label {
   display: block;
   margin-bottom: 5px;
   color: #666;
+  font-size: 25px;
   font-weight: bold;
 }
 
 select, input, button {
   margin-bottom: 15px;
   padding: 10px 15px;
-  border: 1px solid #ddd;
+  border: 1px solid rgb(0, 0, 0);
   border-radius: 5px;
-  font-size: 16px;
+  font-size: 25px;
+  width: 250px;
 }
 
 select:focus, input:focus {
@@ -49,19 +66,22 @@ button {
 }
 
 button:hover {
+  background-color: #329ce2;
+}
+
+.LinkButton {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #3498db;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+  width: 187.5px; /* 셀렉트 박스 크기의 3/2 */
+  text-align: center; /* 텍스트 가운데 정렬 */
+  margin-top: 10px; /* 버튼 위 여백 추가 */
+}
+
+.LinkButton:hover {
   background-color: #2980b9;
-}
-
-/* 원의 스타일 */
-.App div > div {
-    position: relative;
-}
-
-.App div > div > div {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
 }

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import WebcamApp from './WebcamApp';
 import './index.css';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 
 const cocoObjects = [
     "person", "bicycle", "car", "motorcycle", "airplane", "bus", "train", "truck", "boat", "traffic light",
@@ -19,54 +20,64 @@ function App() {
   const [selectedObject, setSelectedObject] = useState('dog');
   const [objectCount, setObjectCount] = useState(1);
   const [shootingInterval, setShootingInterval] = useState(1);
-  const [isCameraActive, setIsCameraActive] = useState(false);
 
   return (
-    <div className="App">
-      <h1>Webcam Application</h1>
-
-      <label htmlFor="objectSelect">Choose an object:</label>
-      <select 
-        id="objectSelect" 
-        name="objectSelect" 
-        value={selectedObject} 
-        onChange={(e) => setSelectedObject(e.target.value)}
-      >
-        {cocoObjects.map(obj => <option key={obj} value={obj}>{obj.charAt(0).toUpperCase() + obj.slice(1)}</option>)}
-      </select>
-
-      <label htmlFor="objectCount">Number of objects:</label>
-      <input 
-        type="number" 
-        id="objectCount" 
-        name="objectCount" 
-        min="1" 
-        max="10" 
-        value={objectCount} 
-        onChange={(e) => setObjectCount(e.target.value)}
-      />
-
-      <label htmlFor="shootingInterval">Shooting interval (seconds):</label>
-      <input 
-        type="number" 
-        id="shootingInterval" 
-        name="shootingInterval" 
-        min="1" 
-        max="60" 
-        value={shootingInterval} 
-        onChange={(e) => setShootingInterval(e.target.value)}
-      />
-
-      <button onClick={() => setIsCameraActive(true)}>Complete Settings</button>
-
-      {isCameraActive && (
-        <WebcamApp 
-          selectedObject={selectedObject} 
-          objectCount={parseInt(objectCount, 10)} 
-          shootingInterval={parseInt(shootingInterval, 10)}
-        />
-      )}
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={
+          <div className="App">
+            <h1>Auto-Camera</h1>
+            <div>
+              <label htmlFor="objectSelect">촬영할 객체를 선택하세요!</label>
+              <select 
+                id="objectSelect" 
+                name="objectSelect" 
+                value={selectedObject} 
+                onChange={(e) => setSelectedObject(e.target.value)}
+              >
+                {cocoObjects.map(obj => <option key={obj} value={obj}>{obj.charAt(0).toUpperCase() + obj.slice(1)}</option>)}
+              </select>
+              <label htmlFor="objectCount">객체 수를 선택하세요!</label>
+              <input 
+                type="number" 
+                id="objectCount" 
+                name="objectCount" 
+                min="1" 
+                max="10" 
+                value={objectCount} 
+                onChange={(e) => setObjectCount(e.target.value)}
+              />
+              <label htmlFor="shootingInterval">촬영간격(초)을 선택하세요!</label>
+              <input 
+                type="number" 
+                id="shootingInterval" 
+                name="shootingInterval" 
+                min="0.1" 
+                max="60" 
+                value={shootingInterval} 
+                onChange={(e) => setShootingInterval(e.target.value)}
+              />
+              <br />
+              <div style={{ width: '80%', textAlign: 'center' }}> {/* 가운데 정렬을 위한 div 추가 */}
+                <Link className="LinkButton" to="/webcam">세팅 완료!</Link>
+              </div>
+            </div>
+          </div>
+        } index />
+        <Route path="/webcam" element={
+          <div>
+            <WebcamApp 
+              selectedObject={selectedObject} 
+              objectCount={parseInt(objectCount, 10)} 
+              shootingInterval={parseInt(shootingInterval, 10)}
+            />
+            <div style={{ textAlign: 'center', marginTop: '20px' }}>
+              <Link className="LinkButton" to="/">돌아가기</Link>
+            </div>
+          </div>
+        } />
+      </Routes>
+    </Router>
   );
 }
 
