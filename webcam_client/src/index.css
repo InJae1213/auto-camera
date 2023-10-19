@@ -1,4 +1,4 @@
-/* Resetting some default styles */
+/* 기본 스타일 초기화 */
 body, h1, h2, h3, h4, p, div, label, button, input, select {
   margin: 0;
   padding: 0;
@@ -6,6 +6,7 @@ body, h1, h2, h3, h4, p, div, label, button, input, select {
   font-family: 'Arial', sans-serif;
 }
 
+/* 배경 이미지 설정 */
 body {
   background-image: url('auto.png');
   background-size: cover;
@@ -13,6 +14,7 @@ body {
   background-position: center center;
 }
 
+/* 메인 앱 스타일 */
 .App {
   display: flex;
   flex-direction: column;
@@ -23,6 +25,7 @@ body {
   background-color: rgba(255, 255, 255, 0.8);
 }
 
+/* 제목 스타일 */
 h1 {
   margin-bottom: 20px;
   color: #333;
@@ -31,11 +34,13 @@ h1 {
   transition: color 0.3s, transform 0.3s;
 }
 
+/* 제목 호버 효과 */
 h1:hover {
   color: red;
   transform: scale(1.1);
 }
 
+/* 라벨 스타일 */
 label {
   display: block;
   margin-bottom: 5px;
@@ -44,6 +49,7 @@ label {
   font-weight: bold;
 }
 
+/* 입력 및 선택 요소 스타일 */
 select, input, button {
   margin-bottom: 15px;
   padding: 10px 15px;
@@ -53,11 +59,13 @@ select, input, button {
   width: 250px;
 }
 
+/* 포커스 효과 */
 select:focus, input:focus {
   outline: none;
   border-color: #3498db;
 }
 
+/* 버튼 스타일 */
 button {
   background-color: #3498db;
   color: white;
@@ -65,10 +73,12 @@ button {
   transition: background-color 0.3s;
 }
 
+/* 버튼 호버 효과 */
 button:hover {
   background-color: #329ce2;
 }
 
+/* 링크 버튼 스타일 */
 .LinkButton {
   display: inline-block;
   padding: 10px 20px;
@@ -82,6 +92,7 @@ button:hover {
   margin-top: 10px; /* 버튼 위 여백 추가 */
 }
 
+/* 링크 버튼 호버 효과 */
 .LinkButton:hover {
   background-color: #2980b9;
 }
