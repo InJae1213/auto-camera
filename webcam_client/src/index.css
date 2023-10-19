@@ -96,3 +96,8 @@ button:hover {
 .LinkButton:hover {
   background-color: #2980b9;
 }
+
+input[type="radio"] {
+  margin-right:-100px;
+  margin-left: 0;
+}
