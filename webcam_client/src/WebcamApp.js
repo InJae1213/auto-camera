@@ -39,7 +39,7 @@ function WebcamApp({ selectedObject, objectCount, shootingInterval, detectionMod
         formData.append('image', imageSrc);
 
         try {
-            let response = await fetch("http://192.168.0.5:5000/detect", {
+            let response = await fetch("http://각자의IP:5000/detect", {
                 method: "POST",
                 body: formData
             });
