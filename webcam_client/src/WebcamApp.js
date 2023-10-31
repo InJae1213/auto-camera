@@ -1,28 +1,46 @@
 import React, { useRef, useEffect, useCallback, useState } from 'react';
 import Webcam from 'react-webcam';
 
-// 웹캠 앱 컴포넌트
 function WebcamApp({ selectedObject, objectCount, shootingInterval, detectionMode }) {
-    // 웹캠 참조 설정
     const webcamRef = useRef(null);
-    // 촬영 상태 표시 (빨간색: 촬영 중, 초록색: 촬영 완료)
     const [indicatorColor, setIndicatorColor] = useState('red');
-    // 인터넷 연결 상태 확인
     const [isOnline, setIsOnline] = useState(navigator.onLine);
-    // 감지된 객체 수
     const [detectedCount, setDetectedCount] = useState(0);
-    // 서버 요청 진행 상태
     const [isRequestInProgress, setIsRequestInProgress] = useState(false);
+    
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
-    // 이미지 저장 함수
+    const [facingMode, setFacingMode] = useState(isMobile ? 'environment' : 'user');
+
+    const switchCamera = useCallback(() => {
+        setFacingMode(prev => prev === 'user' ? 'environment' : 'user');
+    }, []);
+
+    useEffect(() => {
+        if (isMobile) {
+            // 모바일에서의 초기화 및 필요한 로직 (필요시 구현)
+        } else {
+            navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+            if (!webcamRef.current) return;
+            const constraints = { audio: false, video: true };
+            navigator.getUserMedia(constraints,
+                stream => webcamRef.current.srcObject = stream,
+                error => console.log("Webcam Error:", error)
+            );
+        }
+
+        return () => {
+            if (!isMobile && webcamRef.current && webcamRef.current.srcObject) {
+                const tracks = webcamRef.current.srcObject.getTracks();
+                tracks.forEach(track => track.stop());
+            }
+        };
+    }, [webcamRef, isMobile]);
+
     const saveImageFunction = useCallback(() => {
-        const link = document.createElement('a');
-        link.href = webcamRef.current.getScreenshot();
-        link.download = `capture_${Date.now()}.jpg`;
-        link.click();
+        downloadImage(webcamRef.current.getScreenshot(), `capture_${Date.now()}.jpg`);
     }, [webcamRef]);
 
-    // 서버에 이미지 전송 및 객체 감지 함수
     const sendImageToServer = useCallback(async () => {
         if (!webcamRef.current || isRequestInProgress) {
             return;
@@ -39,7 +57,7 @@ function WebcamApp({ selectedObject, objectCount, shootingInterval, detectionMod
         formData.append('image', imageSrc);
 
         try {
-            let response = await fetch("http://각자의IP:5000/detect", {
+            let response = await fetch("https://192.168.0.5:5000/detect", {
                 method: "POST",
                 body: formData
             });
@@ -48,7 +66,6 @@ function WebcamApp({ selectedObject, objectCount, shootingInterval, detectionMod
             const objectOccurrences = detectedObjects.filter(obj => obj === selectedObject).length;
             setDetectedCount(objectOccurrences);
 
-            // 감지 모드에 따른 이미지 저장 조건
             if (detectionMode === "above" && objectOccurrences >= objectCount) {
                 saveImageFunction();
                 setIndicatorColor('green');
@@ -68,7 +85,6 @@ function WebcamApp({ selectedObject, objectCount, shootingInterval, detectionMod
         }
     }, [selectedObject, objectCount, detectionMode, saveImageFunction]);
 
-    // 촬영 간격에 따른 이미지 전송 간격 설정
     useEffect(() => {
         const interval = setInterval(() => {
             sendImageToServer();
@@ -77,7 +93,6 @@ function WebcamApp({ selectedObject, objectCount, shootingInterval, detectionMod
         return () => clearInterval(interval);
     }, [shootingInterval, sendImageToServer]);
 
-    // 인터넷 연결 상태 감지 이벤트 설정
     useEffect(() => {
         window.addEventListener('online', () => setIsOnline(true));
         window.addEventListener('offline', () => setIsOnline(false));
@@ -87,15 +102,39 @@ function WebcamApp({ selectedObject, objectCount, shootingInterval, detectionMod
         };
     }, []);
 
+    function downloadImage(dataURL, filename) {
+        let blob = dataURLtoBlob(dataURL);
+        let url = window.URL.createObjectURL(blob);
+        let a = document.createElement("a");
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(function() {
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+        }, 0);
+    }
+
+    function dataURLtoBlob(dataURL) {
+        let binary = atob(dataURL.split(",")[1]);
+        let array = [];
+        for (let i = 0; i < binary.length; i++) {
+            array.push(binary.charCodeAt(i));
+        }
+        return new Blob([new Uint8Array(array)], { type: "image/jpeg" });
+    }
+
     return (
         <div style={{ position: 'relative', width: '100%', maxWidth: '800px', margin: '0 auto' }}>
             <Webcam 
                 ref={webcamRef} 
                 screenshotFormat="image/jpeg"
                 style={{ width: '100%', height: 'auto' }}
-                videoConstraints={{ deviceId: 0, width: 800, height: 600 }}
+                videoConstraints={{ facingMode }}
             />
             <div style={{ position: 'absolute', top: 10, right: 10, width: 30, height: 30, borderRadius: '50%', backgroundColor: indicatorColor }}></div>
+            {isMobile && <button style={{ position: 'absolute', bottom: 10, right: 10 }} onClick={switchCamera}>Switch Camera</button>}
             {!isOnline && <p style={{ color: 'red', textAlign: 'center' }}>No internet connection</p>}
             <p style={{ textAlign: 'center' }}>Detected {selectedObject}s: {detectedCount}</p>
         </div>
