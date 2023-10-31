@@ -60,7 +60,10 @@ def detect_objects(image):
 
     detected_objects = []
     indexes = cv2.dnn.NMSBoxes(boxes, confidences, CONFIDENCE_THRESHOLD, NMS_THRESHOLD)
-    for i in indexes.flatten():  # Flatten the indexes array
+    
+    # indexes를 numpy 배열로 변환하여 flatten 처리
+    indexes = np.array(indexes).flatten()
+    for i in indexes:
         detected_objects.append(classes[class_ids[i]])
 
     return detected_objects
@@ -92,4 +95,4 @@ def detect():
 
 # 메인 실행
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=5000, ssl_context=('192.168.0.5.pem', '192.168.0.5-key.pem'))
