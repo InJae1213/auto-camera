@@ -8,21 +8,22 @@ body, h1, h2, h3, h4, p, div, label, button, input, select {
 
 /* 배경 이미지 설정 */
 body {
-  background-image: url('auto.png');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
+  background-color: rgb(172, 206, 219);
+  
 }
 
 /* 메인 앱 스타일 */
 .App {
+  background-image: url('autocam-background.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
   padding: 20px;
-  background-color: rgba(255, 255, 255, 0.8);
 }
 
 /* 제목 스타일 */
@@ -37,14 +38,14 @@ h1 {
 /* 제목 호버 효과 */
 h1:hover {
   color: red;
-  transform: scale(1.1);
+  transform: scale(1.5);
 }
 
 /* 라벨 스타일 */
 label {
   display: block;
   margin-bottom: 5px;
-  color: #666;
+  color: rgb(255, 196, 0);
   font-size: 25px;
   font-weight: bold;
 }
@@ -97,7 +98,30 @@ button:hover {
   background-color: #2980b9;
 }
 
+
 input[type="radio"] {
   margin-right:-100px;
   margin-left: 0;
+}
+
+#switchButton {
+  position: absolute; 
+  top: 10px; 
+  right: 10px; 
+  z-index: 999; 
+  background: none; 
+  border: none; 
+}
+
+#switchButton img {
+  width: 50px; 
+  height: 50px; 
+}
+
+#detectedPersonText {
+  margin-top: 20px; 
+}
+
+#goBackButton {
+  margin-bottom: 20px; 
 }
