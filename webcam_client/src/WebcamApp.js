@@ -7,7 +7,7 @@ function WebcamApp({ selectedObject, objectCount, shootingInterval, detectionMod
     const [isOnline, setIsOnline] = useState(navigator.onLine);
     const [detectedCount, setDetectedCount] = useState(0);
     const [isRequestInProgress, setIsRequestInProgress] = useState(false);
-    
+
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
     const [facingMode, setFacingMode] = useState(isMobile ? 'environment' : 'user');
@@ -66,13 +66,13 @@ function WebcamApp({ selectedObject, objectCount, shootingInterval, detectionMod
             const objectOccurrences = detectedObjects.filter(obj => obj === selectedObject).length;
             setDetectedCount(objectOccurrences);
 
-            if (detectionMode === "above" && objectOccurrences >= objectCount) {
+            if (detectionMode === "fix" && objectOccurrences === objectCount) {
                 saveImageFunction();
                 setIndicatorColor('green');
             } else if (detectionMode === "below" && objectOccurrences <= objectCount) {
                 saveImageFunction();
                 setIndicatorColor('green');
-            } else if (detectionMode === "fix" && objectOccurrences === objectCount) {
+            } else if (detectionMode === "above" && objectOccurrences >= objectCount) {
                 saveImageFunction();
                 setIndicatorColor('green');
             } else {
@@ -110,7 +110,7 @@ function WebcamApp({ selectedObject, objectCount, shootingInterval, detectionMod
         a.download = filename;
         document.body.appendChild(a);
         a.click();
-        setTimeout(function() {
+        setTimeout(function () {
             document.body.removeChild(a);
             window.URL.revokeObjectURL(url);
         }, 0);
@@ -127,16 +127,16 @@ function WebcamApp({ selectedObject, objectCount, shootingInterval, detectionMod
 
     return (
         <div style={{ position: 'relative', width: '100%', maxWidth: '800px', margin: '0 auto' }}>
-            <Webcam 
-                ref={webcamRef} 
+            <Webcam
+                ref={webcamRef}
                 screenshotFormat="image/jpeg"
                 style={{ width: '100%', height: 'auto' }}
                 videoConstraints={{ facingMode }}
             />
             <div style={{ position: 'absolute', top: 10, right: 10, width: 30, height: 30, borderRadius: '50%', backgroundColor: indicatorColor }}></div>
-            {isMobile && <button style={{ position: 'absolute', bottom: 10, right: 10 }} onClick={switchCamera}>Switch Camera</button>}
+            {isMobile && <button style={{ position: 'absolute', bottom: 10, right: 10, width:'10px'}} onClick={switchCamera}>🔄️</button>}
             {!isOnline && <p style={{ color: 'red', textAlign: 'center' }}>No internet connection</p>}
-            <p style={{ textAlign: 'center' }}>Detected {selectedObject}s: {detectedCount}</p>
+            <p style={{ textAlign: 'center', color: 'white', fontWeight: 'bold', marginTop: '10px' }}>Detected {selectedObject}(s) : {detectedCount}</p>
         </div>
     );
 }
