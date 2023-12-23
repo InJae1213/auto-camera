@@ -1,5 +1,7 @@
 import React, { useRef, useEffect, useCallback, useState } from 'react';
 import Webcam from 'react-webcam';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCameraRotate } from '@fortawesome/free-solid-svg-icons';
 
 function WebcamApp({ selectedObject, objectCount, shootingInterval, detectionMode }) {
     const webcamRef = useRef(null);
@@ -134,7 +136,7 @@ function WebcamApp({ selectedObject, objectCount, shootingInterval, detectionMod
                 videoConstraints={{ facingMode }}
             />
             <div style={{ position: 'absolute', top: 10, right: 10, width: 30, height: 30, borderRadius: '50%', backgroundColor: indicatorColor }}></div>
-            {isMobile && <button style={{ position: 'absolute', bottom: 10, right: 10, width:'10px'}} onClick={switchCamera}>🔄️</button>}
+            {isMobile && <button id="switchButton" style={{ position: 'absolute', bottom: 10, left:100}} onClick={switchCamera}><FontAwesomeIcon icon={faCameraRotate} size="xl" /></button>}
             {!isOnline && <p style={{ color: 'red', textAlign: 'center' }}>No internet connection</p>}
             <p style={{ textAlign: 'center', color: 'white', fontWeight: 'bold', marginTop: '10px' }}>Detected {selectedObject}(s) : {detectedCount}</p>
         </div>
